@@ -47,12 +47,7 @@ public class ZadatakBr5 {
 
 			}
 
-		} catch (InputMismatchException e) {
-			System.out
-					.println("Nepravilan unos, vraceni ste na pocetak programa!");
-			ZadatakBr5.main(args); // pozivamo main metodu, tj vracamo se an
-									// pocetak
-		}
+		
 
 		// racunanje prosjeka
 		prosjek = suma / (lista.size());
@@ -80,6 +75,15 @@ public class ZadatakBr5 {
 				+ ".\nProsjek=" + prosjek
 				+ ".\nIznad prosjeka ili jednako prosjeku=" + iznadProsjeka
 				+ ".\nIspod prosjeka=" + ispodProsjeka + ".");
+		
+		
+		} catch (InputMismatchException e) {
+			System.out
+					.println("Nepravilan unos, vraceni ste na pocetak programa!");
+			ZadatakBr5.main(args); // pozivamo main metodu, tj vracamo se an
+									// pocetak
+		}
+		
 	}
 
 }
