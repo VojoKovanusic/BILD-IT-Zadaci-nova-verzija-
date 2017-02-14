@@ -3,16 +3,7 @@ package zadaci_13_02_2017Bonus;
 import java.util.Scanner;
 
 public class BonusZadatakBr2 {
-	/*
-	 * Napisati aplikaciju koja prima od korisnika unos (broj godina koji
-	 * korisnik želi da se vrati u prošlost) te ispisuje korisniku broj:
-	 * 
-	 * 1. Sekundi, minuta i sati koliko bi trebalo putovati da se vrati do
-	 * navedene godine u prošlosti. 2. BONUS: Dana, mjeseci, godina koliko bi
-	 * trebalo putovati da se vrati do navedene godine u prošlosti. 3. BONUS:
-	 * Decenija, stoljeæa, milenija koliko bi trebalo putovati da se vrati do
-	 * navedene godine u prošlosti.
-	 */
+
 	public static void main(String[] args) {
 
 		Scanner unos = new Scanner(System.in);
@@ -34,28 +25,14 @@ public class BonusZadatakBr2 {
 			System.out
 					.println("Sa nasim avionom, koji prelazi jednu godinu za jednu sekundu,\n"
 							+ "Vam treba "
-							+ trenutnoSati
-							+ " h,"
+							+ Sekunde
+							+ " sec  "
 							+ Minute
 							+ " min i "
-							+ Sekunde
-							+ " sec da bi presli "
+							+ trenutnoSati
+							+ " h, da bi presli "
 							+ godina + " godina u proslost\n");
-			long dan = sati / 24;
-			long trenutnoDana = sati % 24;
-			long mjeseci = dan % 12;
-			long god = dan / 365;
-		
-			System.out
-					.println("\nDa bi se vratio iz "
-							+ godina
-							+ " godine treba\n"
-							+ trenutnoDana
-							+ " dana "
-							+ mjeseci
-							+ " mjes. "
-							+ god
-							+ "god.");
+			
 
 			long ukupnoCentimetara = godina * 75;
 
@@ -77,23 +54,6 @@ public class BonusZadatakBr2 {
 							+ " trebali preklapati cak "
 							+ fudbalskiStadion
 							+ "," + kusurStadiona + " puta");
-
-			/*
-			 * Napisati aplikaciju koja prima od korisnika unos (broj godina
-			 * koji korisnik želi da se vrati u prošlost) te ispisuje korisniku
-			 * broj:
-			 * 
-			 * Drugi naèin da dobijemo osjeæaj za duboko vrijeme je da zamislimo
-			 * da nas jedan korak (~75 cm) vraæa 1 godinu u prošlost. Naša
-			 * aplikacija treba da ispisuje i sljedeæe (za isti unos kao i
-			 * gore):
-			 * 
-			 * 1. Broj centimetara, metara i kilometara koje bi trebalo
-			 * prohodati da se vrati do navedene godine u prošlosti. 2. Broj
-			 * puta koliko bi prehodali prosjeèni fudbalski stadion (105 m) 3.
-			 * Broj puta koliko bi prehodali obim zemlje (obim zemlje: 40.075
-			 * km)
-			 */
 			long zemlju = (ukupnoCentimetara / 400750000)/10 ;
 			System.out
 					.println("Sto dalje amplicira, pod uslovom da je zemlja ravna i da joj je obim 40.075 km\n"
@@ -105,3 +65,21 @@ public class BonusZadatakBr2 {
 	}
 
 }
+
+
+//PROBA
+/*	long dan = sati / 24;
+			long trenutnoDana = sati % 24;
+			long mjeseci = dan % 12;
+			long god = dan / 365;
+		
+			System.out
+					.println("\nDa bi se vratio iz "
+							+ godina
+							+ " godine treba\n"
+							+ trenutnoDana
+							+ " dana "
+							+ mjeseci
+							+ " mjes. "
+							+ god
+							+ "god.");*/
