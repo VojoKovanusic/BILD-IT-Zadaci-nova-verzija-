@@ -54,7 +54,7 @@ public class ZadatakBr1 {
 
 			}
 			// ispisujemo u zeljenom formatu
-			System.out.printf("Trenutno stanje na racunu je : %.3f%n", svota);
+			System.out.printf("Trenutno stanje na racunu je : %.3f%n", stanje);
 			
 		} catch (InputMismatchException e) { // hvatamo gresku
 			System.out.print("Morate unjeti numericke vrjednosti\n");
