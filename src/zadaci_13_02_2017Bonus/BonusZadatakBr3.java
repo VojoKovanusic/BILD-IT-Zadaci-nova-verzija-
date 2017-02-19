@@ -11,14 +11,14 @@ public class BonusZadatakBr3 {
 		try {
 			System.out.print("Unesite broj svjetlosnih godina: ");
 			brSvjGod = unos.nextDouble();
-			distance(brSvjGod);
+			distanca(brSvjGod);
 		} catch (Exception e) {
 			System.out.println("Pogresan unos. ");
 		}
 		unos.close();
 	}
-
-	public static void distance(double svjetlosniG) {
+//metoda koja prima svjetlosnu godinu i racuna ostale potrebne vrjednosti
+	public static void distanca(double svjetlosniG) {
 		DecimalFormat format = new DecimalFormat("##.##");
 		long sec = 365 * 24 * 60 * 60;
 		long ly = 299792458 * sec;
