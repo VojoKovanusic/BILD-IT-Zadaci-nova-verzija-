@@ -1,6 +1,5 @@
 package Zadaci_23_02_2017;
 
-import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -51,6 +50,7 @@ public class ZadatakBr5_piramida {
 			System.out.println();
 
 		}
+		unos.close();
 	}catch(InputMismatchException e ){
 		System.out.println("Unos nije validan, kraj programa!");
 	}}

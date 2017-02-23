@@ -26,6 +26,7 @@ public class ZadatakBr2_duzina_stringa_i_prvoSlovo {
 			System.out.println("Duzina unesenog string je: " + str.length()
 					+ "." + "\nPrvo slovo u unsenom stringu je \""
 					+ prvoSlovo(str) + "\".");
+			unos.close();
 		} catch (Exception e) {
 			System.out.println("unos nije validan!");
 		}
