@@ -15,14 +15,14 @@ public class ZadatakBr1_reverse {
 			System.out
 					.println("Unesite cijeli trocifreni broj, da program provjeri da li je uneseni broj palindrom:");
 			Scanner unos = new Scanner(System.in);
-			int number = Math.abs(unos.nextInt());
+			int number = unos.nextInt();
 
 			// u slucaju da korisnik unese broj koji nije trocifren, upada u
 			// petlju
-			while (Math.abs(number) < 100 || number > 999) {
+			while (number < 100 || number > 999) {
 				System.out
 						.println("Greska pri unosu!\nUnesite ponovo cijeli trocifreni broj:");
-				number = Math.abs(unos.nextInt());
+				number =  unos.nextInt();
 			}
 			unos.close();
 			// ispis, pozivanje metode i prosledjivanje argumenta
