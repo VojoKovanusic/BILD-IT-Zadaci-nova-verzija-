@@ -6,57 +6,63 @@ import java.util.Scanner;
 public class ConectFour {
 
 	public static void main(String[] args) {
-		try{
-		Scanner unos = new Scanner(System.in);
-		int[][] vrjednosti = new int[6][7];
-		int brDiska = 0;
-		String boja;
-		int disk;
+		try {// sav meni se nalazi u traj kec bloku u slucaju pogresnog unosa
 
-		do {
+			Scanner unos = new Scanner(System.in);
+			int[][] vrjednosti = new int[6][7];
+			int brDiska = 0;
+			String boja;
+			int disk;
 
-			brDiska++;
-			if (brDiska % 2 == 0) {
-				boja = "crveni";
-				disk = 1;
-			} else {
-				boja = "zuti";
-				disk = 2;
-			}
+			do {
 
-			System.out.print("Spusti " + boja + " disk na kolonu (0–6):");
-			int kolona = unos.nextInt();
-			while( kolona >6|| kolona <0){
-				System.out.println("Ova igrica ima od 0 do 6 kolona, pokusajte ponovo:");
-				 kolona = unos.nextInt();
-			}
-			for (int index = vrjednosti.length - 1; index >= 0; index--) {
-				if (vrjednosti[index][kolona] == 0) {
-					vrjednosti[index][kolona] = disk;
-					break;
+				brDiska++;
+				if (brDiska % 2 == 0) {
+					boja = "crveni";
+					disk = 1;
+				} else {
+					boja = "zuti";
+					disk = 2;
 				}
 
-				if (index == 0)
+				System.out.print("Spusti " + boja + " disk na kolonu (0–6):");
+				int kolona = unos.nextInt();
+				while (kolona > 6 || kolona < 0) {
 					System.out
-							.println("Kolona je napunjena, pokusaj sa nekom drugom!");
+							.println("Ova igrica ima od 0 do 6 kolona, pokusajte ponovo:");
+					kolona = unos.nextInt();
+				}
+				for (int index = vrjednosti.length - 1; index >= 0; index--) {
+					if (vrjednosti[index][kolona] == 0) {
+						vrjednosti[index][kolona] = disk;
+						break;
+					}
+
+					if (index == 0)
+						System.out
+								.println("Kolona je napunjena, pokusaj sa nekom drugom!");
+				}
+				ispisirenutnoStanje(vrjednosti);
+
+			} while (provjeriStanje(vrjednosti) == false && brDiska != 6 * 7);
+
+			if (provjeriStanje(vrjednosti)) {
+				System.out.println("Igrac sa " + boja
+						+ "m diskovima je pobjedio!");
+
+			} else {
+				System.out
+						.println("Partija je zavrsila bez pobjednika, nerjeseno!");
 			}
-			ispisirenutnoStanje(vrjednosti);
-
-		} while (provjeriStanje(vrjednosti) == false && brDiska != 6 * 7);
-
-		if (provjeriStanje(vrjednosti)) {
-			System.out.println("Igrac sa " + boja + "m diskovima je pobjedio!");
-
-		} else {
+			unos.close();
+		} catch (InputMismatchException e) {
 			System.out
-					.println("Partija je zavrsila bez pobjednika, nerjeseno!");
-		}
-		}catch(InputMismatchException e){
-			System.out.println("Pogresan unos, ovaj program prima samo cjele brojeve u granici od 0 do 6."
-					+ "\nKraj programa!");
+					.println("Pogresan unos, ovaj program prima samo cjele brojeve u granici od 0 do 6."
+							+ "\nKraj programa!");
 		}
 	}
 
+	// metoda kja prima 2d niz i ispisuje trenutno stanje u njemu
 	public static void ispisirenutnoStanje(int[][] values) {
 
 		for (int i = 0; i < values.length; i++) {
@@ -84,6 +90,9 @@ public class ConectFour {
 
 	}
 
+	// metoda koja u sustini u sebi ima tri metode, kojima prosledjujemo 2d niz
+	// sa podatcima , te on na osnovu toga vrsi validaciju, te vraca tru ili
+	// fols..zavisno da li su cetiri u nizu zetona iste boje
 	public static boolean provjeriStanje(int[][] values) {
 
 		return provjeriPoVertikali(values) || provjeriPoHorizontali(values)
@@ -183,7 +192,7 @@ public class ConectFour {
 			}
 		}
 
-		// Od gornjeg desnog ka nizoj lejvoj strani
+		// Od gornjeg desnog ka donjoj lejvoj strani
 		// prolazi kroz kolone
 
 		for (int i = 0; i < values[0].length; i++) {
