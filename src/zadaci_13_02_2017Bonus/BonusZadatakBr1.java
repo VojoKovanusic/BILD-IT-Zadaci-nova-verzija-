@@ -1,6 +1,5 @@
 package zadaci_13_02_2017Bonus;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BonusZadatakBr1 {
@@ -117,6 +116,7 @@ public class BonusZadatakBr1 {
 				break;
 
 			}
+			unos.close();
 		} catch (Exception e) {
 			System.out
 					.println("Unesite numericku vrjednost, ovo je kalkulator nije pisaca masina!!!");

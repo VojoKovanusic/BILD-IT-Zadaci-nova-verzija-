@@ -58,7 +58,7 @@ public class BonusZadatakBr2 {
 			System.out
 					.println("Sto dalje amplicira, pod uslovom da je zemlja ravna i da joj je obim 40.075 km\n"
 							+ "morali bi je prehodati " + zemlju + " puta.");
-
+unos.close();
 		} catch (Exception e) {
 			System.out.println("Unesite numericku vrjednost!");
 		}
