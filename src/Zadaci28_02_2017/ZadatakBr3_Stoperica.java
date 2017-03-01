@@ -1,6 +1,5 @@
 package Zadaci28_02_2017;
 
-import java.util.Arrays;
 
 public class ZadatakBr3_Stoperica {
 
