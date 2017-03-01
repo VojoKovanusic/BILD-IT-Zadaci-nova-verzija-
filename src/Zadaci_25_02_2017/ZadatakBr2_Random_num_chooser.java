@@ -36,7 +36,7 @@ public class ZadatakBr2_Random_num_chooser {
 
 			System.out.println("Slucajno generisani broj je : "
 					+ getRandom(listaIzuzetaka));
-
+unos.close();
 		} catch (InputMismatchException e) {
 			System.out.println("pogresan unos, kaj programa.");
 		}
