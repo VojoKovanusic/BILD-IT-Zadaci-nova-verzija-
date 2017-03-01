@@ -40,13 +40,7 @@ public class ZadatakBr5_sabiranjeDvijeMatrice {
 			// instanciramo 2d niz tako sto poozivamo metodu, kojoj
 			// prosledjujemo argumente u vidu 2d nizova koje sabiramo
 			double sumMatrix[][] = addMatrix(matrix1, matrix2);
-			for (int row = 0; row < sumMatrix.length; row++) {
-				for (int column = 0; column < sumMatrix.length; column++) {
-					System.out.print(sumMatrix[row][column] + " ");
-				}
-
-				System.out.println();
-			}
+			ispisiMatrice(matrix1, matrix2, sumMatrix);
 
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input,this is end of programs.");
@@ -67,4 +61,41 @@ public class ZadatakBr5_sabiranjeDvijeMatrice {
 		// metoda vraca sumu u vidu 2d niza
 		return sum;
 	}
+
+	// metoda koja prima tri parametra, u vidu 2 d niza i ispisuje ih u trazenom
+	// obliku
+	public static void ispisiMatrice(double[][] matrix1, double[][] matrix2,
+			double[][] matrixSum) {
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				System.out.printf("%7.2f", matrix1[i][j]);
+
+				if (i == 1 && j == 2) {
+					System.out.printf(" +");
+				} else if (j == 2) {
+					System.out.printf("  ");
+				}
+			}
+
+			for (int j = 0; j < 3; j++) {
+				System.out.printf("%7.2f", matrix2[i][j]);
+
+				if (i == 1 && j == 2) {
+					System.out.print(" =");
+				} else if (j == 2) {
+					System.out.printf("  ");
+				}
+			}
+
+			for (int j = 0; j < 3; j++) {
+				System.out.printf("%7.2f", matrixSum[i][j]);
+
+			}
+			System.out.println();
+
+		}
+
+	}
+
 }
