@@ -15,6 +15,8 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
+
 public class JavaKviz {
 	static Scanner unos = new Scanner(System.in);
 	private static ObjectInputStream is;
@@ -110,7 +112,7 @@ public class JavaKviz {
 				System.out.println("Unesite vasu sifru:");
 				String pass = unos.next();
 				int admin = 1;
-				if (korisnickoIme.equals("a") && pass.equals("a")) {
+				if (validacijaAdmina(korisnickoIme, pass)) {
 					ispisMenijaAdminu();
 
 					admin = unos.nextInt();
@@ -188,30 +190,37 @@ public class JavaKviz {
 							.println("Niste unjeli podatke koje odgovaraju administratoru, izlogovani ste iz admin. menija!");
 					JavaKviz.main(args);
 				}
-
+			default:
+				System.out
+						.println("Unjeliste opciju koju ne podrzava program, pokusajte ponovo");
+				JavaKviz.main(args);
 			}
 
 		} catch (InputMismatchException e) {
 			System.out.println("Ilegalan unos, izlogovani ste!");
+
+			unos.nextLine();
 			JavaKviz.main(args);
 		}
-		/*
-		 * ubaciPitanjeUKviz("Da li je ja va OOP?", "da");
-		 * ubaciPitanjeUKviz("Kako se zove ovaj znak u javi \" %\"", "modulo");
-		 * ubaciPitanjeUKviz(
-		 * "Sta nam omoguca va da izadjemo na kraj sa izuzetcim",
-		 * "Exeption handling");
-		 * 
-		 * ispisiPrvihStoUcesnika(); ubaciUsera_U_kviz("drago", "123");
-		 * ubaciUsera_U_kviz("simo", "123");
-		 */
-
-		/*
-		 * * ispisiSvaPitanjaUKvizu(); ubaciUsera_U_kviz("Vojo", "123");
-		 * ubaciUsera_U_kviz("Drago", "123"); odigrajteJednuPartiju("Vojo");
-		 * ispisiPrvihStoUcesnika();
-		 */
+		
 	}
+
+	private static boolean validacijaAdmina(String korisnickoIme, String pass) {
+		try {
+			is = new ObjectInputStream(new FileInputStream("kviz.txt"));
+
+			Admin admin = (Admin) is.readObject();
+			if(admin.getIme().equals(korisnickoIme)&&admin.getPass().equals(pass))
+				return true;
+
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
+		}
+		return false;
+
+	}
+	
 
 	private static void ispisDobrodoslice() {
 		System.out.println("\n\t\t**************" + "\n\t\t**KVIZ JAVA***"
@@ -219,14 +228,14 @@ public class JavaKviz {
 
 	}
 
-	public static void ispisiGlavniMeni() {
+	private static void ispisiGlavniMeni() {
 
 		System.out.println("Unesite zeljeni izbor(broj):\n"
 				+ "1) Registrujte se" + "\n2) Korisnicki meni"
 				+ "\n3) Admnistratorski meni");
 	}
 
-	public static void ispisMenijaAdminu() {
+	private static void ispisMenijaAdminu() {
 		System.out.println("Unesite zeljeni izbor(broj):\n"
 				+ "1) Dodavanje odgovora / pitanja "
 				+ "\n2) Editovanje pitanja / odgovora "
@@ -235,7 +244,7 @@ public class JavaKviz {
 				+ "\n5) Da se izlogujete");
 	}
 
-	public static void ispisMeniIgrac() {
+	private static void ispisMeniIgrac() {
 		System.out
 				.println("****Unesite zeljeni izbor(broj)****\n"
 						+ "1) Odigraj jednu partiju kviza"
@@ -244,7 +253,7 @@ public class JavaKviz {
 						+ "\n4) Da se izlogujete");
 	}
 
-	public static void napraviFileKviz() {
+	private static void napraviFileKviz() {
 		String fileName = "kviz.txt";
 		File fajl = new File(fileName);
 
@@ -254,14 +263,9 @@ public class JavaKviz {
 				try {
 					Files.createFile(path);
 					System.out.println("Upravo je napravljen fajl za kviz!");
-				} catch (IOException e) {
 
-					e.printStackTrace();
-				}
+					Admin admin = new Admin("Vojo", "kkwbs");
 
-				Admin admin = new Admin("Vojo", "kkwbs");
-
-				try {
 					ObjectOutputStream os = new ObjectOutputStream(
 							new FileOutputStream(fileName));
 					os.writeObject(admin);
@@ -271,18 +275,18 @@ public class JavaKviz {
 
 					os.close();
 
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace(System.out);
+					unos.nextLine();
 				}
+
 			}
 
 		}
 
 	}
 
-	public static void napraviFileZaRezultate() {
+	private static void napraviFileZaRezultate() {
 		String fileName = "rezultati.txt";
 		File fajl = new File(fileName);
 
@@ -293,14 +297,9 @@ public class JavaKviz {
 					Files.createFile(path);
 					System.out
 							.println("Upravo je napravljen fajl za rezultate!");
-				} catch (IOException e) {
 
-					e.printStackTrace();
-				}
+					Top100 admin = new Top100();
 
-				Top100 admin = new Top100();
-
-				try {
 					ObjectOutputStream os = new ObjectOutputStream(
 							new FileOutputStream(fileName));
 					os.writeObject(admin);
@@ -310,121 +309,100 @@ public class JavaKviz {
 
 					os.close();
 
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace(System.out);
+					unos.nextLine();
 				}
+
 			}
 
 		}
 
 	}
 
-	public static void ubaciUsera_U_kviz(String ime, String pass) {
+	private static void ubaciUsera_U_kviz(String ime, String pass) {
 
 		User korisnik = new User(ime, pass);
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
 
-				Admin admin = (Admin) is.readObject();
-				if (admin.daLiPostojiKorisnik(ime)) {
-					System.out.println("Korisnik " + ime
-							+ " vec postoji, niste se registrovali.");
-				}
-
-				else {
-					admin.DodajUseraU_Listu(korisnik);
-					System.out.println("Uspjesno se registrovao korisnik "
-							+ ime);
-				}
-
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			Admin admin = (Admin) is.readObject();
+			if (admin.daLiPostojiKorisnik(ime)) {
+				System.out.println("Korisnik " + ime
+						+ " vec postoji, niste se registrovali.");
 			}
 
-		} catch (FileNotFoundException e) {
+			else {
+				admin.DodajUseraU_Listu(korisnik);
+				System.out.println("Uspjesno se registrovao korisnik " + ime);
+			}
 
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
+
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void obrisiTakmicara() {
+	private static void obrisiTakmicara() {
 
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
-				System.out.println("Unesite ime igraca kojeg zelite obrisati:");
-				String ime = unos.next();
 
-				Admin admin = (Admin) is.readObject();
-				if (!admin.daLiPostojiKorisnik(ime)) {
-					System.out.println("Igrac " + ime
-							+ " ne postoji, niste ga stoga ni obrisali .");
-				}
+			System.out.println("Unesite ime igraca kojeg zelite obrisati:");
+			String ime = unos.next();
 
-				else {
-
-					admin.obrisiIgraca(ime);
-					System.out.println("Igrac " + ime + " je obrisan");
-				}
-				ispisMenijaAdminu();
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			Admin admin = (Admin) is.readObject();
+			if (!admin.daLiPostojiKorisnik(ime)) {
+				System.out.println("Igrac " + ime
+						+ " ne postoji, niste ga stoga ni obrisali .");
 			}
 
-		} catch (FileNotFoundException e) {
+			else {
 
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+				admin.obrisiIgraca(ime);
+				System.out.println("Igrac " + ime + " je obrisan");
+			}
+			ispisMenijaAdminu();
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
+
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
 	// nesto sam dirao oko is....nema inicijalizacije klasicne
-	public static boolean validacijaIgraca(String ime, String pass) {
+	private static boolean validacijaIgraca(String ime, String pass) {
 
 		try {
 			is = new ObjectInputStream(new FileInputStream("kviz.txt"));
-			try {
 
-				Admin admin = (Admin) is.readObject();
-				return (admin.validacijaKorisnia(ime, pass));
+			Admin admin = (Admin) is.readObject();
+			return (admin.validacijaKorisnia(ime, pass));
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 		return false;
 
 	}
 
-	public static void ubaciPitanjeUKviz() {
+	private static void ubaciPitanjeUKviz() {
 		System.out.println("Unesite pitanje:");
 		unos.nextLine();
 		String pitanje = unos.nextLine();
@@ -435,281 +413,250 @@ public class JavaKviz {
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
-				Admin admin = (Admin) is.readObject();
-				admin.DodajPitanjeUListu(pitanje1);
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
+			Admin admin = (Admin) is.readObject();
+			admin.DodajPitanjeUListu(pitanje1);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
 
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void editujPitanje(int redniBrojPitanja,
+	private static void editujPitanje(int redniBrojPitanja,
 			String noviDioPitanja, String dioKojiEditujemo) {
 
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
-				Admin admin = (Admin) is.readObject();
 
-				admin.editujPitanjeAdmin(redniBrojPitanja, dioKojiEditujemo,
-						noviDioPitanja);
+			Admin admin = (Admin) is.readObject();
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
+			admin.editujPitanjeAdmin(redniBrojPitanja, dioKojiEditujemo,
+					noviDioPitanja);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
 
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void dohvatiOdgovor(int redniBrojOdgovora) {
+	private static void dohvatiOdgovor(int redniBrojOdgovora) {
 
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
-				Admin admin = (Admin) is.readObject();
 
-				admin.dohvatiOdgovor(redniBrojOdgovora);
+			Admin admin = (Admin) is.readObject();
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
+			admin.dohvatiOdgovor(redniBrojOdgovora);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void editujOdgovor() {
+	private static void editujOdgovor() {
 
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
-				Admin admin = (Admin) is.readObject();
 
-				System.out.println("Unesire redni broj odgovora:");
-				int redniBrojOdgovora = unos.nextInt();
+			Admin admin = (Admin) is.readObject();
 
-				dohvatiOdgovor(redniBrojOdgovora);
+			System.out.println("Unesire redni broj odgovora:");
+			int redniBrojOdgovora = unos.nextInt();
 
-				System.out
-						.println("Unesite dio odgovora koji zelite izbaciti:");
-				String dioKojiEditujemo = unos.next();
-				System.out.println("Unesite dio odgovora koji zelite ubaciti:");
-				unos.nextLine();
-				String noviDioOdgovora = unos.next();
+			dohvatiOdgovor(redniBrojOdgovora);
 
-				admin.editOdgovorAdmin(redniBrojOdgovora, dioKojiEditujemo,
-						noviDioOdgovora);
+			System.out.println("Unesite dio odgovora koji zelite izbaciti:");
+			String dioKojiEditujemo = unos.next();
+			System.out.println("Unesite dio odgovora koji zelite ubaciti:");
+			unos.nextLine();
+			String noviDioOdgovora = unos.next();
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
+			admin.editOdgovorAdmin(redniBrojOdgovora, dioKojiEditujemo,
+					noviDioOdgovora);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
 
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void ispisiSvaPitanjaUKvizu() {
+	private static void ispisiSvaPitanjaUKvizu() {
 		try {
 
 			ObjectInputStream input = new ObjectInputStream(
 					new FileInputStream("kviz.txt"));
-			try {
-				Admin admin = (Admin) input.readObject();
 
-				// ispis trazenih podataka
-				admin.ispisiPitanja();
-				input.close();
+			Admin admin = (Admin) input.readObject();
 
-				// nakon iscitavanja podataka, nudimo administratoru smjernice
-				// za dalje kretanje po meniju
-				ispisMenijaAdminu();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			// ispis trazenih podataka
+			admin.ispisiPitanja();
+			input.close();
+
+			// nakon iscitavanja podataka, nudimo administratoru smjernice
+			// za dalje kretanje po meniju
+			ispisMenijaAdminu();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void ispisiDosadasnjeRezultateKorisnika(String ime) {
+	private static void ispisiDosadasnjeRezultateKorisnika(String ime) {
 		try {
 
 			ObjectInputStream input = new ObjectInputStream(
 					new FileInputStream("kviz.txt"));
-			try {
-				Admin admin = (Admin) input.readObject();
-				admin.ispisRezultaDatogKorisnika(ime);
-				ispisMeniIgrac();
-				input.close();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+
+			Admin admin = (Admin) input.readObject();
+			admin.ispisRezultaDatogKorisnika(ime);
+			ispisMeniIgrac();
+			input.close();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
 
-	public static void odigrajteJednuPartiju(String ime) {
+	private static void odigrajteJednuPartiju(String ime) {
+		int brojac = 0;
 		int bodovi = 0;
 		try {
 
 			ObjectInputStream input = new ObjectInputStream(
 					new FileInputStream("kviz.txt"));
-			try {
 
-				Admin admin = (Admin) input.readObject();
+			Admin admin = (Admin) input.readObject();
 
-				int size = admin.brojPitanja();
-				int brojac = 0;
-				ArrayList<Integer> list = new ArrayList<Integer>(size);
-				for (int i = 1; i <= size; i++) {
-					list.add(i);
-				}
+			int size = admin.brojPitanja();
 
-				Random rand = new Random();
-				// brojac osvojenih bodova po partiji
-				int brBodova = 0;
+			ArrayList<Integer> list = new ArrayList<Integer>(size);
 
-				while (list.size() > 0) {
-					brojac++;
-					// podesimo na zeljeni broj pitanja
-					if (brojac == 5) {
-						break;
-					}
-					// dobijamo random vrjednost indexa koji se ne ponavlja
-					int index = rand.nextInt(list.size());
-					int random = list.remove(index);
-
-					// moramo smanjiti index za jedan da ne bi izasao iz liste
-					// objekt "pitanje" instanciramo pozivanjem metode koja ima
-					// tip returna Pitanje
-
-					Pitanje pitanje = admin.postaviPitanje(random - 1);
-
-					System.out.println("Pitanje br " + brojac + ": "
-							+ pitanje.getPitanje());
-					System.out.println("Unesite vas odgovor:");
-					unos.nextLine();
-					String odgovor = unos.nextLine();
-
-					// ako je odgovr tacan , zanemarujuci velika slova
-					if (odgovor.equalsIgnoreCase(pitanje.getTacan_odgovor())) {
-						System.out
-								.println("Vas odgovor je tacan, upravo ste dobili jedan poen!\n");
-						admin.doajBod(ime);
-						brBodova++;
-
-					} else {
-
-						System.out
-								.println("Vas odgovor nije taca, tacan odgovor je: "
-										+ pitanje.getTacan_odgovor() + ".\n");
-					}
-
-					ObjectOutputStream upis = new ObjectOutputStream(
-							new FileOutputStream("kviz.txt"));
-					upis.writeObject(admin);
-
-					upis.close();
-					input.close();
-					// da mozemo izlistati sve dosadasnje igre za datog igraca
-					registrujPartiju(ime, brBodova);
-					// upisivanje rezultata za top 100 takmicara nakon svake partije
-					ubaciPartijuUTop100(ime, brBodova);
-				}
-				System.out.println("Osvojili ste upravo " + brBodova
-						+ " poen(a).");
-				admin.provjeriStanjeBodova(ime);
-				bodovi = brBodova;
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			for (int i = 1; i <= size; i++) {
+				list.add(i);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+
+			Random rand = new Random();
+			// brojac osvojenih bodova po partiji
+			int brBodova = 0;
+
+			while (list.size() > 0) {
+				brojac++;
+				// podesimo na zeljeni broj pitanja
+				if (brojac == 5) {
+					break;
+				}
+				// dobijamo index nasumicno
+				int index = rand.nextInt(list.size());
+				// izbacujemo ga da se ne bi vise ponovio
+				int random = list.remove(index);
+
+				// moramo smanjiti index za jedan da ne bi izasao iz liste
+				// objekt "pitanje" instanciramo pozivanjem metode koja ima
+				// tip returna Pitanje
+
+				Pitanje pitanje = admin.postaviPitanje(random - 1);
+
+				System.out.println("Pitanje br " + brojac + ": "
+						+ pitanje.getPitanje());
+				System.out.println("Unesite vas odgovor:");
+
+				String odgovor = unos.next();
+
+				// ako je odgovr tacan , zanemarujuci velika slova
+				if (odgovor.equalsIgnoreCase(pitanje.getTacan_odgovor())) {
+					System.out
+							.println("Vas odgovor je tacan, upravo ste dobili jedan poen!\n");
+					admin.doajBod(ime);
+					brBodova++;
+
+				} else {
+
+					System.out
+							.println("Vas odgovor nije taca, tacan odgovor je: "
+									+ pitanje.getTacan_odgovor() + ".\n");
+				}
+
+				ObjectOutputStream upis = new ObjectOutputStream(
+						new FileOutputStream("kviz.txt"));
+				upis.writeObject(admin);
+
+				upis.close();
+				input.close();
+			}
+			// da mozemo izlistati sve dosadasnje igre za datog igraca
+			// upisivanje rezultata za top 100 takmicara nakon svake partije
+
+			registrujPartiju(ime, brBodova);
+
+			System.out
+					.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			System.out.println("Osvojili ste upravo " + brBodova + " poen(a).");
+			admin.provjeriStanjeBodova(ime);
+			bodovi = brBodova;
+
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
-		ispisMeniIgrac();
 	}
 
 	private static void registrujPartiju(String ime, int poeni) {
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"kviz.txt"));
-			try {
 
-				Admin admin = (Admin) is.readObject();
-				admin.registrovanjePartije(ime, poeni);
+			Admin admin = (Admin) is.readObject();
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("kviz.txt"));
-				upis.writeObject(admin);
-				is.close();
-				upis.close();
+			admin.registrovanjePartije(ime, poeni);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			ubaciPartijuUTop100(ime, poeni);
 
-		} catch (FileNotFoundException e) {
+			ispisMeniIgrac();
 
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("kviz.txt"));
+			upis.writeObject(admin);
+			is.close();
+			upis.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			unos.nextLine();
 		}
 
 	}
@@ -718,26 +665,19 @@ public class JavaKviz {
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"rezultati.txt"));
-			try {
 
-				Top100 rez = (Top100) is.readObject();
-				rez.dodajTakmicara(ime, poeni);
+			Top100 rez = (Top100) is.readObject();
+			rez.dodajTakmicara(ime, poeni);
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("rezultati.txt"));
-				upis.writeObject(rez);
-				is.close();
-				upis.close();
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("rezultati.txt"));
+			upis.writeObject(rez);
+			is.close();
+			upis.close();
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			unos.nextLine();
 		}
 
 	}
@@ -746,27 +686,20 @@ public class JavaKviz {
 		try {
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream(
 					"rezultati.txt"));
-			try {
 
-				Top100 object = (Top100) is.readObject();
-				object.sortiraj();
-				object.ispisiTop100();
+			Top100 object = (Top100) is.readObject();
+			object.sortiraj();
+			object.ispisiTop100();
 
-				ObjectOutputStream upis = new ObjectOutputStream(
-						new FileOutputStream("rezultati.txt"));
-				upis.writeObject(object);
-				is.close();
-				upis.close();
+			ObjectOutputStream upis = new ObjectOutputStream(
+					new FileOutputStream("rezultati.txt"));
+			upis.writeObject(object);
+			is.close();
+			upis.close();
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (FileNotFoundException e) {
-
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			unos.next();
 		}
 		ispisMeniIgrac();
 	}

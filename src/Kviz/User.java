@@ -36,7 +36,7 @@ public class User implements Serializable {
 					+ " poen(a)");
 			i++;
 		}
-		System.out.println("***Ukupno ste osvojili " + sumaBodova
+		System.out.println("**Ukupno ste osvojili " + sumaBodova
 				+ " poen(a) u dosadasnjeum ucestvovanjem u Java kvizu***\n");
 		
 	}

@@ -19,7 +19,7 @@ public void editPitanje(String dioKojiEditujemo,
 	
 	if (getPitanje().contains(dioKojiEditujemo)) {
 		setPitanje(getPitanje().replace(dioKojiEditujemo,noviDioPitanja ));
-		System.out.println("Pitanje sada izgleda ovako:\n" + getPitanje());
+		System.out.println("Pitanje u kvizu sada izgleda ovako:\n" + getPitanje());
 	}
 	else System.out.println("Pitanje "+getPitanje()+" ne sadrzi u sebi "+dioKojiEditujemo);
 }

@@ -22,6 +22,14 @@ public class Admin implements Serializable {
 
 	}
 
+	public String getIme() {
+		return ime;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
 	public boolean validacijaIgraca(String ime, String pass) {
 		for (User igrac : listaUser_a) {
 			if (igrac.getIme() == ime && igrac.getPass() == pass)
@@ -57,6 +65,12 @@ public class Admin implements Serializable {
 			}
 
 		}
+	}
+	public void obrisiPitanje(int brojPitanja) {
+	
+				Pitanje pitanje= listaPitanja.get(brojPitanja);
+				listaPitanja.remove(pitanje);
+		
 	}
 
 	public void doajBod(String ime) {

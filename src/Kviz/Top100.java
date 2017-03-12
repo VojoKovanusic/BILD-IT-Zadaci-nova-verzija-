@@ -24,12 +24,14 @@ public class Top100 implements Serializable {
 			}
 
 		}
+		
 	}
 
 	public String[] getTakmicari() {
 		return takmicari;
 	}
 
+	
 	public int[] getBodovi() {
 		return bodovi;
 	}
