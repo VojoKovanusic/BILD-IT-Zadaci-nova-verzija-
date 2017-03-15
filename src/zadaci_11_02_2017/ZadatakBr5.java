@@ -30,10 +30,10 @@ public class ZadatakBr5 {
 														// 100, ako se ne
 														// prekine prije
 
-				int broj = unos.nextInt(); // unos os strane korisnika
-				if (broj == 0&& index==0) { // ako je prvi unos nula
+				int broj = unos.nextInt(); // unos  strane korisnika
+				while (broj == 0&& index==0) { // ako je prvi unos nula
 					System.out.println("Ne mozemo racunati prosjek samo za nulu, unesite vise elemenata.");
-					ZadatakBr5.main(args);//greska vracamo na pocetak programa
+					broj = unos.nextInt(); 
 					break;
 				}
 				if (broj == 0) { // nulom prekidamo unos
@@ -76,13 +76,13 @@ public class ZadatakBr5 {
 				+ ".\nIznad prosjeka ili jednako prosjeku=" + iznadProsjeka
 				+ ".\nIspod prosjeka=" + ispodProsjeka + ".");
 		
-		
 		} catch (InputMismatchException e) {
 			System.out
-					.println("Nepravilan unos, vraceni ste na pocetak programa!");
+			.println("Nepravilan unos, vraceni ste na pocetak programa!");
 			ZadatakBr5.main(args); // pozivamo main metodu, tj vracamo se an
-									// pocetak
+			// pocetak
 		}
+		
 		
 	}
 

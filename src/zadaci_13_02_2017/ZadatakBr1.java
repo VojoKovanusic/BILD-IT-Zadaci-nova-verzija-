@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class ZadatakBr1 {
 	/*
-	 * 1. Pretpostavimo da uplatimo $100 svaki mjesec na štedni raèun koji ima
+	 * 1. Pretpostavimo da uplatimo $100 svaki mje
+	 * sec na štedni raèun koji ima
 	 * godišnju interesnu stopu od 5%. Mjeseèna interesna stopa je stoga 0.05 /
 	 * 12 = 0.00417. Nakon prvog 100 * (1 +0.00417) = 100.417. Nakon drugog
 	 * mjeseca, (100 + 100.417) * (1 + 0.00417) = 201.252. Nakon treæeg (100 +

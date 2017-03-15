@@ -31,14 +31,17 @@ public class ZadatakBr5_Process_score_in_text_file {
 				for (int i = 0; i < niz.length; i++) {
 					//ako je broj
 					if (isNumber(niz[i])) {
+						System.out.println(niz[i]);
 						Integer x = Integer.parseInt(niz[i]);
-						System.out.println(x);
+					
 						suma += x;
+						System.out.println(suma);
 
 					}
 
 				}
 			}
+			System.out.println(suma);
 		} catch (IOException e) {
 
 			System.out.println("Program nije pronasa uneseni fajl");

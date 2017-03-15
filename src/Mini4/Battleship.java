@@ -22,7 +22,7 @@ public class Battleship {
 	public static void napraviTablu(String[][] tabla) {
 		for (int row = 0; row < tabla.length; row++) {
 			for (int column = 0; column < tabla[0].length; column++) {
-				tabla[row][column] = "#";
+				tabla[row][column] = "-";
 			}
 		}
 	}
@@ -34,7 +34,7 @@ public class Battleship {
 
 			for (int c = 0; c < tabla[0].length; c++) {
 				if (tabla[r][c].equals("S")) {
-					System.out.print(" " + "#");
+					System.out.print(" " + "-");
 				} else {
 					System.out.print(" " + tabla[r][c]);
 				}
@@ -95,7 +95,7 @@ public class Battleship {
 				board[row - 1][col - 1] = "!";
 			} else {
 				System.out.println("********* PROMASAJ *********");
-				board[row - 1][col - 1] = "M";
+				board[row - 1][col - 1] = "*";
 			}
 			return hits;
 

@@ -18,7 +18,9 @@ public class ZadatakBr5_br_ponavljanja_br_u_nizu {
 			int broj = unos.nextInt();
 
 			while (broj < 0 || broj > 100) {
-				System.out.println("Unesite broj izmedju 1 i 100");
+				System.out
+						.println("Poslednje uneseni broj se nece racunati\nProgram primaa brojeve u rangu od 1 i 100.\n"
+								+ "Unesite broj izmedju 1 -100 ili nulu za dosadasnje rezultate.");
 				broj = unos.nextInt();
 			}
 
@@ -35,15 +37,16 @@ public class ZadatakBr5_br_ponavljanja_br_u_nizu {
 
 				broj = unos.nextInt();
 				while (broj < 0 || broj > 100) {
-					System.out.println("Unesite broj izmedju 1 i 100");
+					System.out
+							.println("Poslednje uneseni broj se nece racunati\nProgram prima brojeve u rangu od 1 i 100.\n"
+									+ "Unesite broj izmedju 1 -100 ili nulu za dosadasnje rezultate.");
 					broj = unos.nextInt();
 				}
-				
+
 				// petlja funkcionise dok je korisnikov unos ne bude 0
 			} while (broj != 0);
 			unos.close();
-			
-			
+
 			// ispis samo onih elemenata cija je vrjednost veca od 0
 			for (int i = 0; i < niz.length; i++) {
 				if (niz[i] > 0) {
@@ -51,7 +54,7 @@ public class ZadatakBr5_br_ponavljanja_br_u_nizu {
 							+ " puta!");
 				}
 			}
-		} catch (InputMismatchException e) {     //hvatanje greske
+		} catch (InputMismatchException e) { // hvatanje greske
 			System.out
 					.println("Greska pri unosu. Program prima samo cjelobrojne numericke vrjednosti.");
 		}
