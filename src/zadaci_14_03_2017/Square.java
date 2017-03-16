@@ -35,4 +35,10 @@ public class Square extends GeometricObject {
 		// TODO Auto-generated method stub
 		return 4 * side;
 	}
+
+	@Override
+	public boolean equals(GeometricObject o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

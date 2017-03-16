@@ -1,13 +1,22 @@
 package Zadaci_07_03_2017;
 
 import java.util.Date;
-//jlasa G.Obj. ima tri atributa
-public class GeometricObject {
+
+import zadaci_14_03_2017.Colorable;
+
+//abstr. klasa G.Obj. ima tri atributa, implementira comparable i colorable interfejs
+public abstract class GeometricObject implements Comparable<GeometricObject>,
+		Colorable {
 	private String color;
 	private boolean filled;
 	private Date dateCreated;
-	
-	//...sa klasicnim get i set metodama, pomocu kojih pristupamo atributima i mjenjamo ih
+
+	// no args. con.
+	public GeometricObject() {
+	}
+
+	// ...sa klasicnim get i set metodama, pomocu kojih pristupamo atributima i
+	// mjenjamo ih
 	public String getColor() {
 		return color;
 	}
@@ -37,5 +46,23 @@ public class GeometricObject {
 		return "GeometricObject [color=" + color + ", filled=" + filled
 				+ ", dateCreated=" + dateCreated + "]";
 	}
-	
+
+	public abstract double getArea();
+
+	public abstract boolean equals(GeometricObject o);
+
+	public abstract double getPerimeter();
+
+	public static GeometricObject max(GeometricObject o1, GeometricObject o2) {
+		return o1.compareTo(o2) == 1 ? o1 : o2;
+	}
+	public static double sumArea(GeometricObject[] a){
+		double sumArea=0;
+		for (int i = 0; i < a.length; i++) {
+			sumArea+=a[i].getArea();
+			
+		}
+		return sumArea;
+	}
+
 }
