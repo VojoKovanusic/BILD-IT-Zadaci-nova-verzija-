@@ -1,0 +1,6 @@
+1 Jacob 22,095 Isabella 22,8902 
+2 Ethan 17,993 Sophia 20,6233  
+3 Michael 17,324 Emma 17,3274  
+4 Jayden 17,158 Olivia 17,0175 	
+5 William 17,036 Ava 15,4216 	
+6 Alexander 16,746  Emily 14,

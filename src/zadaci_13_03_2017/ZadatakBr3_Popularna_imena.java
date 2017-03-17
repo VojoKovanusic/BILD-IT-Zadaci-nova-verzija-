@@ -27,16 +27,16 @@ public class ZadatakBr3_Popularna_imena {
 		try {
 			Scanner unos = new Scanner(System.in);
 			System.out
-					.println("Unesite godinu za koju zelite da vam provjerimo ime u razdoblju od 2001 do 2010:");
+					.println("Unesite godinu za koju zelite da vam provjerimo ime u razdoblju od 2000 do 2010:");
 			int godina = unos.nextInt();
-			while (godina > 2010 || godina < 2001) {
-				System.out
-						.println("Unesite godinu za koju zelite da vam provjerimo ime u razdoblju od 2001 do 2010:");
+			while (godina < 2000 || godina > 2010) {
+				System.out.println("Unesite razdoblje od 2000 do 2010");
 				godina = unos.nextInt();
 			}
-
-			System.out.println("Unesite godinu:");
-			String izbor = "babynamesranking" + godina + ".txt";
+String god=Integer.toString(godina);
+			
+			String izbor = "C:\\Users\\mirjana\\workspace\\A\\babynamesranking"
+					+ god + ".txt";
 
 			System.out
 					.println("Unesite ime za koje zelite da izvrsimo provjeru:");
