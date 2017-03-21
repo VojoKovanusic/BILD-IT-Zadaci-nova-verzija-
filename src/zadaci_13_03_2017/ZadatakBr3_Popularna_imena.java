@@ -1,10 +1,10 @@
 package zadaci_13_03_2017;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ZadatakBr3_Popularna_imena {
-	/*
+	/*12.31
 	 * (Baby name popularity ranking) The popularity ranking of baby names from
 	 * years 2001 to 2010 is downloaded from www.ssa.gov/oact/babynamesand
 	 * stored in files named babynameranking2001.txt, babynameranking2002.txt, .
@@ -19,84 +19,58 @@ public class ZadatakBr3_Popularna_imena {
 	 * ranking of the name for the year. Here is a sample run:
 	 */
 	public static void main(String[] args) {
-		// pozivamo metodu koja nam ispisuj ima, redni broj...
-		ispisiIme();
+		Scanner input = new Scanner(System.in);
+
+		// Prompt the user to enter the year, gender and name 
+		System.out.print("Enter the year: ");
+		String year = input.nextLine();
+
+		System.out.print("Enter the gender: ");
+		String gender = input.nextLine();
+
+		System.out.print("Enter the name: ");
+		String name = input.nextLine();
+
+		// Create an ArrayList
+		ArrayList<String> list = new ArrayList<>();
+
+		// Read text from url
+		try {
+			java.net.URL url = new java.net.URL(
+			"http://www.cs.armstrong.edu/liang/data/babynamesranking" +
+			year + ".txt");
+			
+			// Create input file from url
+			input = new Scanner(url.openStream());
+			while (input.hasNext()) {
+				for (int i = 0; i < 5; i++) {
+					list.add(i, input.next());
+				}
+
+				// Display ranking for the name for the year
+				if (list.get(gender(gender)).equals(name)) {
+					System.out.println(
+						name + " is ranked #" + list.get(0) + " in year " + year);
+					System.exit(0);
+				}
+				list.clear();
+			}
+		}
+		catch (java.net.MalformedURLException ex) {
+			System.out.println("Invalid URL");
+		}
+		catch (java.io.IOException ex) {
+			System.out.println("I/O Errors: no such file");
+		}
+
+		System.out.println("The name " + name + " is not ranked in year " + year);
 	}
 
-	public static void ispisiIme() {
-		try {
-			Scanner unos = new Scanner(System.in);
-			System.out
-					.println("Unesite godinu za koju zelite da vam provjerimo ime u razdoblju od 2000 do 2010:");
-			int godina = unos.nextInt();
-			while (godina < 2000 || godina > 2010) {
-				System.out.println("Unesite razdoblje od 2000 do 2010");
-				godina = unos.nextInt();
-			}
-String god=Integer.toString(godina);
-			
-			String izbor = "C:\\Users\\mirjana\\workspace\\A\\babynamesranking"
-					+ god + ".txt";
-
-			System.out
-					.println("Unesite ime za koje zelite da izvrsimo provjeru:");
-
-			String ime = unos.next();
-
-			System.out
-					.println("Unesite pol koji zelite provjeriti za muskarce M, a za zene W:");
-			String pol = unos.next();
-
-			while ((pol.equals("m")) || (pol.equals("w"))) {
-				System.out
-						.println("Ponovo unesite pol koji zelite provjeriti, za muskarce M, a za zene W: ");
-				pol = unos.next();
-			}
-			File file = new File(izbor);
-			// ako fajl postoji:
-			if (file.exists()) {
-				Scanner skener = new Scanner(file);
-				// sa uslovom pratimo da li ime postoji u fajlu
-				boolean uslov = false;
-				// iscitavanje dok ne dodje do kraja
-				while (skener.hasNext()) {
-					// sadrzaj svakog izcitanog reda dobija varijabla "red"
-					String red = skener.nextLine();
-
-					// svaki red stavljamo u niz
-					String niz[] = red.split(" ");
-
-					// u nizu na indexu 1 je musko ime ...ako se poklapa sa
-					// trzenim vrsimo ispis, stim da uslov u tom slucaju mjenja
-					// vrjednost u true
-					if (ime.equals(niz[1]) && pol.equalsIgnoreCase("m")) {
-						System.out.println("Musko ime " + niz[1]
-								+ " je na mjestu broj " + niz[0] + " sa "
-								+ niz[2] + " imena u " + godina);
-						uslov = true;
-						// u nizu na indexu 3 je zensko ime ...ako se poklapa sa
-						// trzenim vrsimo ispis,stim da uslov u tom slucaju
-						// mjenja vrjednost u true
-					} else if (ime.equals(niz[3]) && pol.equalsIgnoreCase("w")) {
-						System.out.println("Zensko Ime " + niz[3]
-								+ " je na mjestu broj " + niz[0] + " sa "
-								+ niz[2] + " imena u " + godina + " godini.");
-						uslov = true;
-					}
-
-				}
-				// ako nije niti jedan od uslova ispunjen, znaci da nema imena u
-				// tekst fajlu
-				if (!uslov)
-					System.out.println("Nema unesenog imena na spisku!");
-
-				skener.close();
-			} else
-				System.out.println("Nema unesenog fajla");
-			unos.close();
-		} catch (Exception e) {// hvatanje gresaka svih vrsta :)
-			e.getMessage();
-			System.out.println("Prekid programa, niste unjeli validne podatke");
-		}
+	/** Returns the index for the corresponding gender */
+	public static int gender(String gender) {
+		if (gender.equals("M"))
+			return 1;
+		else
+			return 3;
 	}
 }
