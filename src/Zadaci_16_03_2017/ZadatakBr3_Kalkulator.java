@@ -1,6 +1,5 @@
 package Zadaci_16_03_2017;
 
-import java.util.Scanner;
 
 public class ZadatakBr3_Kalkulator {
 	public static void main(String[] args) {

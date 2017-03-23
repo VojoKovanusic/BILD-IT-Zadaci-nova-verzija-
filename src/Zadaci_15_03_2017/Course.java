@@ -1,6 +1,5 @@
 package Zadaci_15_03_2017;
 
-import java.util.Arrays;
 
 public class Course implements Cloneable {
 

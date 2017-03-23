@@ -2,6 +2,7 @@ package Zadaci_16_03_2017;
 
 public class Rational extends Number implements Comparable<Rational> {
 
+	private static final long serialVersionUID = 1L;
 	// Atribut sa  brojnikom i nazivnikom
 	private long[] r = new long[2];
 
