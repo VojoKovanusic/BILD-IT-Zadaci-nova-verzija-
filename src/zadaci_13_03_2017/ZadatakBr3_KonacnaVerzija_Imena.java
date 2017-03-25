@@ -3,7 +3,7 @@ package zadaci_13_03_2017;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ZadatakBr3_URL_nova_verzija {
+public class ZadatakBr3_KonacnaVerzija_Imena {
 
 	static Scanner unos = new Scanner(System.in);
 
