@@ -77,4 +77,10 @@ public class Triangle extends GeometricObject {
 	public void howToColor() {
 System.out.println("Trougao: Ofarbaj sve tri strane");		
 	}
+
+	@Override
+	public boolean equals(GeometricObject o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

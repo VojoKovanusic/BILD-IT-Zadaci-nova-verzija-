@@ -2,7 +2,6 @@ package Zadaci_23_02_2017;
 
 import java.util.Scanner;
 
-import javax.jws.soap.SOAPBinding;
 
 public class ZadatakBr2_duzina_stringa_i_prvoSlovo {
 	/*

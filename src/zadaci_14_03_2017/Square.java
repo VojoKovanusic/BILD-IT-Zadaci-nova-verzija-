@@ -38,7 +38,8 @@ public class Square extends GeometricObject {
 
 	@Override
 	public boolean equals(GeometricObject o) {
-		// TODO Auto-generated method stub
+		if (compareTo(o) == 0)
+			return true;
 		return false;
 	}
 }

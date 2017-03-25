@@ -62,7 +62,8 @@ public class ZadatakBr5_shuffle {
 
 	public static ArrayList<Integer> randomQuestion(int size,
 			ArrayList<Integer> pitanja) {
-		ArrayList<Integer> randomQ = new ArrayList<Integer>();
+		 
+		
 
 		for (int i = 0; i < size; i++) {
 			int index = (int) (Math.random() * size);

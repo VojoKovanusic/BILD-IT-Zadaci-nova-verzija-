@@ -1,5 +1,4 @@
-package
-zadaci_10_03_2017;
+package zadaci_10_03_2017;
 
 
 public class ZadatakBr2_OutOfMemoryError {

@@ -22,6 +22,8 @@ public class ZadatakBr4_brojevi_iz_URL {
 				int line = ispisUrl.nextInt();
 				suma += line;
 				brojac++;
+				//ispis svih 
+				System.out.println(line);
 			}
 			ispisUrl.close();
 			System.out.println("Suma brojeva u tekstualnom fajlu je "+ suma+"\n"
