@@ -53,14 +53,30 @@ public abstract class GeometricObject implements Comparable<GeometricObject>,
 
 	public abstract double getPerimeter();
 
-	public static GeometricObject max(GeometricObject o1, GeometricObject o2) {
-		return o1.compareTo(o2) == 1 ? o1 : o2;
+	public static void max(GeometricObject o1, GeometricObject o2) {
+		if (o1.compareTo(o2)>0) {
+			System.out.println("Prvi geometrijski oblik -->" + o1.toString()
+					+ " je veci.");
+		} else if (o1.compareTo(o2)<0) {
+			System.out.println("Drugi geometrijski oblik -->" + o2.toString()
+					+ " je veci");
+		} else {
+			System.out.println("Jednake povrsine su");
+		}
+	}	
+	public int compareTo(GeometricObject o) {
+		if (getArea() > o.getArea())
+			return 1;
+		if (getArea() < o.getArea())
+			return -1;
+		return 0;
 	}
-	public static double sumArea(GeometricObject[] a){
-		double sumArea=0;
+
+	public static double sumArea(GeometricObject[] a) {
+		double sumArea = 0;
 		for (int i = 0; i < a.length; i++) {
-			sumArea+=a[i].getArea();
-			
+			sumArea += a[i].getArea();
+
 		}
 		return sumArea;
 	}

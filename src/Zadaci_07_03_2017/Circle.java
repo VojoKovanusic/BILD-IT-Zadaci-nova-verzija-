@@ -1,5 +1,7 @@
 package Zadaci_07_03_2017;
 
+import java.text.DecimalFormat;
+
 
 public class Circle extends GeometricObject {
 
@@ -28,8 +30,8 @@ public class Circle extends GeometricObject {
 	}
 
 	public String toString() {
-
-		return "Krug sa radijusom: " + radius+" ima povrsinu od "+getArea();
+DecimalFormat df=new DecimalFormat("#.##");
+		return "Krug povrsine od "+df.format(getArea());
 
 	}
 
